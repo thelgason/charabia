@@ -11,6 +11,7 @@ macro_rules! make_language {
         #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy, Serialize, Deserialize, PartialOrd, Ord)]
         pub enum Language {
             Zho,
+            Isl,
             $($language),+,
         }
         impl From<whatlang::Lang> for Language {
@@ -25,6 +26,7 @@ macro_rules! make_language {
             fn from(other: Language) -> whatlang::Lang {
                 match other {
                     Language::Zho => whatlang::Lang::Cmn,
+                    Language::Isl => whatlang::Lang::Nob, // Icelandic not supported by whatlang, fallback to Norwegian
                     $(Language::$language => whatlang::Lang::$language), +,
                 }
             }
@@ -34,6 +36,7 @@ macro_rules! make_language {
             pub fn code(&self) -> &'static str {
                 match self {
                     Language::Zho => "zho",
+                    Language::Isl => "isl",
                     $(Language::$language => whatlang::Lang::$language.code()), +,
                 }
             }
@@ -41,6 +44,7 @@ macro_rules! make_language {
             pub fn from_code<S: AsRef<str>>(code: S) -> Option<Language> {
                 match code.as_ref() {
                     "zho" => Some(Language::Zho),
+                    "isl" => Some(Language::Isl),
                     _ => whatlang::Lang::from_code(code.as_ref()).map(Language::from),
                 }
             }
@@ -73,7 +77,6 @@ make_language! {
     Nob,
     Dan,
     Swe,
-    Isl,
     Fin,
     Tur,
     Nld,
