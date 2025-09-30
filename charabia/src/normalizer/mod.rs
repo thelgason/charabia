@@ -10,6 +10,8 @@ pub use self::compatibility_decomposition::CompatibilityDecompositionNormalizer;
 pub use self::control_char::ControlCharNormalizer;
 #[cfg(feature = "greek")]
 use self::greek::GreekNormalizer;
+#[cfg(feature = "icelandic-recomposition")]
+use self::icelandic_recomposition::IcelandicRecompositionNormalizer;
 #[cfg(feature = "japanese-transliteration")]
 pub use self::japanese::JapaneseNormalizer;
 pub use self::lowercase::LowercaseNormalizer;
@@ -33,6 +35,8 @@ mod compatibility_decomposition;
 mod control_char;
 #[cfg(feature = "greek")]
 mod greek;
+#[cfg(feature = "icelandic-recomposition")]
+mod icelandic_recomposition;
 #[cfg(feature = "japanese-transliteration")]
 mod japanese;
 mod lowercase;
@@ -54,6 +58,8 @@ pub static NORMALIZERS: LazyLock<Vec<Box<dyn Normalizer>>> = LazyLock::new(|| {
         Box::new(CompatibilityDecompositionNormalizer),
         #[cfg(feature = "swedish-recomposition")]
         Box::new(SwedishRecompositionNormalizer),
+        #[cfg(feature = "icelandic-recomposition")]
+        Box::new(IcelandicRecompositionNormalizer),
         Box::new(ControlCharNormalizer),
         Box::new(Classifier),
         Box::new(PersianNormalizer),

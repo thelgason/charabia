@@ -40,6 +40,7 @@ default = [
     "khmer",
     "vietnamese",
     "swedish-recomposition",
+    "icelandic-recomposition",
     "turkish",
     "german-segmentation",
 ]
@@ -81,6 +82,9 @@ latin-snakecase = ["dep:finl_unicode"]
 
 # force Charabia to recompose Swedish characters
 swedish-recomposition = []
+
+# force Charabia to recompose Icelandic characters
+icelandic-recomposition = []
 
 # allow turkish specialized tokenization
 turkish = []
