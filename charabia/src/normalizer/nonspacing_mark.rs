@@ -25,6 +25,10 @@ impl CharNormalizer for NonspacingMarkNormalizer {
     }
 
     fn should_normalize(&self, token: &Token) -> bool {
+        // Exclude Icelandic to preserve accent distinctions (á vs a, etc.)
+        if token.language == Some(crate::Language::Isl) {
+            return false;
+        }
         matches!(
             token.script,
             Script::Hebrew | Script::Thai | Script::Arabic | Script::Latin | Script::Greek
